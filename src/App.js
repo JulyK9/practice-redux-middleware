@@ -2,6 +2,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import './App.css';
 import { increaseCounter } from './redux/counterReducer';
 import { getTodo } from './redux/todoReducer';
+import { client } from './client';
 
 function App() {
   const count = useSelector((store) => store.counter);
@@ -21,12 +22,25 @@ function App() {
   //   dispatch(getTodoAction);
   // };
 
+  // api로 호출하는 사이드이펙트 작업 필요
+
+  // api를 호출하는 비동기 함수
+  const getTodos = (dispatch) => {
+    // 비동기로 요청을 하고 받아온 todos를 가지고 디스패치로 액션을 전달
+    client.get('todos').then((todos) => dispatch(getTodo(todos)));
+  };
+
+  // 비동기 함수를 dispatch로 전달하는 함수
+  const requestTodos = () => {
+    dispatch(getTodos);
+  };
+
   return (
     <div className="App">
       <h2>Practice Redux Middleware</h2>
       <h3>count: {count}</h3>
       <button onClick={handleIncreaseNumber}>increase</button>
-      <button onClick={() => {}}>get Todos</button>
+      <button onClick={requestTodos}>get Todos</button>
       <section>
         <ul>
           {todos.map((todo) => (

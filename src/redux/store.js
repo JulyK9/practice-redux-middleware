@@ -1,9 +1,11 @@
 import { combineReducers, createStore } from 'redux';
 import counterReducer from './counterReducer';
+import todoReducer from './todoReducer';
 
 // combineReducers를 통해 슬라이스된 리듀서로부터 루트 리듀서 만들어 combine 해주기
 const rootReducer = combineReducers({
   counter: counterReducer,
+  todo: todoReducer,
 });
 
 // store를 만들고 리듀서를 store에 넣어주기

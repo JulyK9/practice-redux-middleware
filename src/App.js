@@ -25,14 +25,18 @@ function App() {
   // api로 호출하는 사이드이펙트 작업 필요
 
   // api를 호출하는 비동기 함수
-  const getTodos = (dispatch) => {
+  // 인자로 들어오는 storeDispatch 는 thunk에서 action이 함수이기 때문에 넣어주는 것
+  const getTodos = (storeDispatch) => {
     // 비동기로 요청을 하고 받아온 todos를 가지고 디스패치로 액션을 전달
-    client.get('todos').then((todos) => dispatch(getTodo(todos)));
+    // client.get('todos').then((todos) => dispatch(getTodo(todos)));
+    client
+      .get('todos')
+      .then((todos) => storeDispatch({ type: 'todo/getTodo', payload: todos }));
   };
 
   // 비동기 함수를 dispatch로 전달하는 함수
   const requestTodos = () => {
-    dispatch(getTodos);
+    dispatch(getTodos); // thunk에서 함수로 인지하는 부분에서 걸림
   };
 
   return (

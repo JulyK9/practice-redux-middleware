@@ -14,5 +14,6 @@ const rootReducer = combineReducers({
 // deprecated 됐으나 pure redux 로직을 통한 흐름을 이해하기 위해 먼저 사용해보고
 // toolkit에서 지원하는 configureStore로 변환할 것
 const store = createStore(rootReducer, applyMiddleware(logger, thunk));
+// logger 실행되고 thunk 실행되고 다음 dispatch 실행됨
 
 export default store;
